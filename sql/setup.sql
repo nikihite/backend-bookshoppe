@@ -11,6 +11,6 @@ CREATE table authors (
 
 INSERT INTO authors (name, dob, pob) VALUES
 ('Laura Numeroff', 1953, 'New York'),
-('Eric Carle' 1929, 'New York'),
+('Eric Carle', 1929, 'New York'),
 ('Shel Silverstein', 1930, 'Illinois'),
 ('Dr.Seuss', 1904, 'Massachusetts');

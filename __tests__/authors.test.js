@@ -11,10 +11,19 @@ describe('authors routes', () => {
   it('should return a list of authors', async () => {
     const res = await request(app).get('/authors');
     expect(res.body.length).toEqual(4);
-    const moira = res.body.find((char) => char.id === '1');
-    expect(moira).toHaveProperty('name', 'Laura Numeroff');
-    expect(moira).toHaveProperty('dob', '1953');
-    expect(moira).toHaveProperty('pob', 'New York');
+    expect(res.body[0]).toEqual({
+      id: expect.any(String),
+      name: expect.any(String),
+    });
+  });
+  it('GET /authors/:id should return authors detail', async () => {
+    const resp = await request(app).get('/authors/1');
+    expect(resp.body).toEqual({
+      id: '1',
+      name: 'Laura Numeroff',
+      dob: 1953,
+      pob: 'New York',
+    });
   });
     
   afterAll(() => {
