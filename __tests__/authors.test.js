@@ -25,6 +25,20 @@ describe('authors routes', () => {
       pob: 'New York',
     });
   });
+
+  it('#POST /authors should create a new author', async () => {
+    const newAuthor = {
+      name: 'Laura Numeroff',
+      dob: 1953,
+      pob: 'New York',
+    };
+    const res = await request(app).post('/authors').send(newAuthor);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      ...newAuthor,
+    });
+  });
+  
     
   afterAll(() => {
     pool.end();

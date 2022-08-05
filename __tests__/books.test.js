@@ -12,15 +12,27 @@ describe('book routes', () => {
     expect(resp.body.length).toEqual(12);
     expect(resp.body[0]).toEqual({
       id: expect.any(String),
-      name: expect.any(String)
+      title: expect.any(String)
     });
   });
   it('GET /books/:id should return book detail', async () => {
     const resp = await request(app).get('/books/1');
     expect(resp.body).toEqual({
       id: '1',
-      name: 'If You Give a Mouse a Cookie',
+      title: 'If You Give a Mouse a Cookie',
       released: 1985,
+    });
+  });
+
+  it('#POST /books should create a new book', async () => {
+    const newBook = {
+      'title': 'If You Give a Mouse a Cookie',
+      'released': 1985,
+    };
+    const res = await request(app).post('/books').send(newBook);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      ...newBook,
     });
   });
 

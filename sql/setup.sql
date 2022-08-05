@@ -1,28 +1,31 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
-DROP table if exists authors;
-DROP table if exists books;
+DROP table if exists books cascade;
+DROP table if exists book_author cascade;
+DROP table if exists authors cascade;
+
+CREATE table books (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR NOT NULL,
+    released INT
+);
 
 CREATE table authors (
-    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR NOT NULL,
     dob INT,
     pob VARCHAR
 );
 
-INSERT INTO authors (name, dob, pob) VALUES
-('Laura Numeroff', 1953, 'New York'),
-('Eric Carle', 1929, 'New York'),
-('Shel Silverstein', 1930, 'Illinois'),
-('Dr.Seuss', 1904, 'Massachusetts');
-
-CREATE table books (
-    id BIGINT GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR NOT NULL,
-    released INT
+CREATE TABLE book_author (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    book_id BIGINT,
+    author_id BIGINT,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (author_id) REFERENCES authors(id)
 );
 
-INSERT INTO books (name, released) VALUES
+INSERT INTO books (title, released) VALUES
 ('If You Give a Mouse a Cookie', 1985),
 ('If You Give a Pig a Pancake', 1998),
 ('If You Give a Moose a Muffin', 1991),
@@ -36,13 +39,11 @@ INSERT INTO books (name, released) VALUES
 ('One Fish, Two Fish, Red Fish, Blue Fish', 1960),
 ('Fox in Socks', 1965);
 
-CREATE TABLE book_author (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    book_id INT,
-    author_id INT,
-    FOREIGN KEY (book_id) REFERENCES books(id),
-    FOREIGN KEY (author_id) REFERENCES authors(id)
-);
+INSERT INTO authors (name, dob, pob) VALUES
+('Laura Numeroff', 1953, 'New York'),
+('Eric Carle', 1929, 'New York'),
+('Shel Silverstein', 1930, 'Illinois'),
+('Dr.Seuss', 1904, 'Massachusetts');
 
 INSERT INTO book_author (book_id, author_id) VALUES
 ('1', '1'),
