@@ -34,4 +34,26 @@ INSERT INTO books (name, released) VALUES
 ('The Missing Piece', 1976),
 ('Green Eggs and Ham', 1960),
 ('One Fish, Two Fish, Red Fish, Blue Fish', 1960),
-('Fox in Socks', 1965); 
+('Fox in Socks', 1965);
+
+CREATE TABLE book_author (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    book_id INT,
+    author_id INT,
+    FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (author_id) REFERENCES authors(id)
+);
+
+INSERT INTO book_author (book_id, author_id) VALUES
+('1', '1'),
+('2', '1'),
+('3', '1'),
+('4', '2'),
+('5', '2'),
+('6', '2'),
+('7', '3'),
+('8', '3'),
+('9', '3'),
+('10', '4'),
+('11', '4'),
+('12', '4');
